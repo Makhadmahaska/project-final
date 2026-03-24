@@ -2,7 +2,7 @@
 import express from 'express';
 import type { Request, Response } from 'express';
 import fs from 'fs';
-import feedbackRoutes from './routes/feedbackRoutes';
+import feedbackRoutes from './routes/feedbackRoutes.js';
 
 const app = express();
 const PORT = 3000;

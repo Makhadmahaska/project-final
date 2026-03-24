@@ -1,7 +1,7 @@
 
 import type { Request, Response } from 'express';
-import feedbackService from '../services/feedbackService';
-import { feedbackSchema } from '../validators/feedbackValidator';
+import feedbackService from '../services/feedbackservice.js';
+import { feedbackSchema } from '../validation/feedbackValidator.js';
 import { success } from 'zod';
 
 type FeedbackServiceType = typeof feedbackService;

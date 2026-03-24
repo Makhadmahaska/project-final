@@ -1,5 +1,5 @@
-import FeedbackForm from "./component/feedbackForm";
-import ThemeToggle from "./component/DarkTheme";
+import FeedbackForm from "./components/feedbackForm";
+import ThemeToggle from "./components/DarkTheme";
 import useDarkMode from "./hooks/userDarkMode";
 
 function App() {

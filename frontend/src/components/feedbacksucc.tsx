@@ -1,5 +1,5 @@
 import { CheckIcon } from "@heroicons/react/16/solid";
-import FeedbackCard from "./feedCard";
+import FeedbackCard from "./feedbackCard";
 
 export default function FeedbackSuccess() {
   return (

@@ -1,7 +1,7 @@
 import type { ChangeEvent } from "react";
 import { ChevronDownIcon } from "@heroicons/react/16/solid";
 
-import FeedbackCard from "./feedCard";
+import FeedbackCard from "./feedbackCard";
 import FeedbackSuccess from "./feedbacksucc";
 import FeedbackFormRating from "./feedbackRat";
 import NotificationMessage from "./notiM";

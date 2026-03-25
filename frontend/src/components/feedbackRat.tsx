@@ -1,31 +1,44 @@
 type Props = {
+  isDarkMode: boolean;
   value: number | null;
   onChange: (value: number) => void;
 };
 
-export default function FeedbackFormRating({ value, onChange }: Props) {
+export default function FeedbackFormRating({
+  isDarkMode,
+  value,
+  onChange,
+}: Props) {
   const ratings = [
     { value: 1, emoji: "😔" },
     { value: 2, emoji: "😐" },
     { value: 3, emoji: "😊" },
-    { value: 4, emoji: "😃" },
+    { value: 4, emoji: "😀" },
     { value: 5, emoji: "🤩" },
   ];
 
   return (
-    <fieldset>
-      <legend className="text-sm font-medium text-gray-900 dark:text-white">
+    <fieldset className="space-y-3">
+      <legend
+        className={`text-sm font-semibold ${
+          isDarkMode ? "text-slate-100" : "text-slate-800"
+        }`}
+      >
         How was your experience?
       </legend>
 
-      <div className="mt-4 grid grid-cols-1 sm:grid-cols-5 gap-3">
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
         {ratings.map((rating) => (
           <label
             key={rating.value}
-            className={`flex items-center justify-center p-3 rounded-md text-2xl cursor-pointer outline outline-1 transition-all hover:scale-110 ${
+            className={`flex h-[52px] items-center justify-center rounded-lg border text-[1.5rem] cursor-pointer transition-all ${
               value === rating.value
-                ? "outline-primary outline-2"
-                : "outline-gray-300 dark:outline-gray-600"
+                ? isDarkMode
+                  ? "border-2 border-orange-500 bg-orange-500/10 shadow-[0_0_0_1px_rgba(249,115,22,0.14)]"
+                  : "border-2 border-orange-500 bg-orange-50 shadow-[0_0_0_1px_rgba(249,115,22,0.14)]"
+                : isDarkMode
+                  ? "border-slate-600 bg-slate-800/25 hover:border-slate-500"
+                  : "border-slate-300 bg-white hover:border-slate-400"
             }`}
           >
             <input

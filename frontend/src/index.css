@@ -1,15 +1,1 @@
 @import "tailwindcss";
-
-@custom-variant dark (&:where(.dark, .dark *));
-
-@theme {
-  --color-primary: var(--color-orange-500);
-}
-
-@layer theme {
-  :root {
-    @variant dark {
-      --color-primary: var(--color-orange-400);
-    }
-  }
-}

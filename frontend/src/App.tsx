@@ -3,17 +3,19 @@ import ThemeToggle from "./components/DarkTheme";
 import useDarkMode from "./hooks/userDarkMode";
 
 function App() {
-  const { isDarkMode } = useDarkMode();
+  const { isDarkMode, toggleTheme } = useDarkMode();
 
   return (
     <div
-      className={`min-h-screen flex flex-col items-center justify-center p-6 transition-colors duration-300 ${
-        isDarkMode ? "bg-gray-900" : "bg-gray-100"
+      className={`min-h-screen font-sans flex flex-col items-center justify-center px-4 py-10 transition-colors duration-300 ${
+        isDarkMode
+          ? "bg-[#111827] text-white"
+          : "bg-[#f3f4f6] text-slate-900"
       }`}
     >
-      <div className="w-full max-w-xl mx-auto">
-        <FeedbackForm />
-        <ThemeToggle />
+      <div className="w-full max-w-[540px] mx-auto">
+        <FeedbackForm isDarkMode={isDarkMode} />
+        <ThemeToggle isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
       </div>
     </div>
   );

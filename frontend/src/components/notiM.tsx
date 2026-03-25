@@ -1,15 +1,24 @@
 type Props = {
+  isDarkMode: boolean;
   message?: string;
   type?: "success" | "error";
 };
 
-export default function NotificationMessage({ message, type }: Props) {
+export default function NotificationMessage({
+  isDarkMode,
+  message,
+  type,
+}: Props) {
   if (!message) return null;
 
   const style =
     type === "success"
-      ? "text-green-800 bg-green-100 dark:bg-green-900/80 dark:text-green-100"
-      : "text-red-800 bg-red-100 dark:bg-red-900/80 dark:text-red-100";
+      ? isDarkMode
+        ? "text-green-100 bg-green-900/80"
+        : "text-green-800 bg-green-100"
+      : isDarkMode
+        ? "text-red-100 bg-red-900/80"
+        : "text-red-800 bg-red-100";
 
   return (
     <div

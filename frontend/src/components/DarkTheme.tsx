@@ -1,26 +1,41 @@
-import useDarkMode from "../hooks/userDarkMode";
-
-export default function ThemeToggle() {
-  const { isDarkMode, toggleTheme } = useDarkMode();
-
+export default function ThemeToggle({
+  isDarkMode,
+  toggleTheme,
+}: {
+  isDarkMode: boolean;
+  toggleTheme: () => void;
+}) {
   return (
-    <div className="flex items-center gap-3 mt-8">
-      <span className="text-sm text-gray-600 dark:text-gray-400">
-        {isDarkMode ? "Dark" : "Light"} Mode
+    <div className="mt-7 flex items-center justify-center gap-3">
+      <span
+        className={`text-sm font-semibold ${
+          isDarkMode ? "text-slate-400" : "text-slate-500"
+        }`}
+      >
+        {isDarkMode ? "Dark Mode" : "Light Mode"}
       </span>
 
       <button
+        type="button"
         onClick={toggleTheme}
-        className="relative inline-flex items-center h-6 w-11 rounded-full bg-gray-200 dark:bg-gray-700 transition-colors focus:outline-none"
+        aria-label="Toggle theme"
+        aria-pressed={isDarkMode}
+        className={`relative inline-flex h-7 w-12 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-orange-500/30 ${
+          isDarkMode ? "bg-slate-700" : "bg-slate-200"
+        }`}
       >
         <span
-          className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+          className={`inline-block h-5 w-5 transform rounded-full bg-white shadow-sm transition-transform ${
             isDarkMode ? "translate-x-6" : "translate-x-1"
           }`}
         />
       </button>
 
-      <span className="text-sm text-gray-600 dark:text-gray-400">
+      <span
+        className={`text-base leading-none ${
+          isDarkMode ? "text-amber-300" : "text-amber-400"
+        }`}
+      >
         {isDarkMode ? "🌙" : "☀️"}
       </span>
     </div>

@@ -1,5 +1,4 @@
-import { prisma, Prisma } from '../lib/prisma';
-
+import { prisma, Prisma } from "../../lib/db.js";
 class FeedbackService {
   async save(feedback: Prisma.FeedbackCreateInput): Promise<void> {
     // Save to database

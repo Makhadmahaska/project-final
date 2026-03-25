@@ -1,13 +1,18 @@
-
 import express from 'express';
 import type { Request, Response } from 'express';
 import fs from 'fs';
+import cors from 'cors';
 import feedbackRoutes from './routes/feedbackRoutes.js';
 
 const app = express();
 const PORT = 3000;
 
 // Middleware
+app.use(
+  cors({
+    origin: true,
+  }),
+);
 app.use(express.json());
 
 // Routes

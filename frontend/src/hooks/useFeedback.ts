@@ -74,9 +74,10 @@ export default function useFeedback() {
           if (!response.ok) {
             const data = (await response.json().catch(() => null)) as {
               message?: string;
+              errors?: string[];
             } | null;
 
-            lastError = data?.message ?? "Request failed";
+            lastError = data?.errors?.[0] ?? data?.message ?? "Request failed";
             continue;
           }
 
@@ -84,7 +85,6 @@ export default function useFeedback() {
           setNotificationMessage("Feedback sent successfully!");
           setNotificationType("success");
 
-          // reset form
           setForm({
             name: "",
             email: "",

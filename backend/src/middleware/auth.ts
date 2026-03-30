@@ -1,5 +1,5 @@
-import type { NextFunction, Request, Response } from 'express';
-import { verifyFirebaseToken } from '../firebase/firebaseAdmin.js';
+import type { NextFunction, Request, Response } from "express";
+import { verifyFirebaseToken } from "../firebase/firebaseAdmin.js";
 
 declare global {
   namespace Express {
@@ -15,36 +15,31 @@ declare global {
 export async function requireAuth(
   req: Request,
   res: Response,
-  next: NextFunction,
+  next: NextFunction
 ) {
   const header = req.headers.authorization;
 
-  if (!header?.startsWith('Bearer ')) {
+  if (!header?.startsWith("Bearer ")) {
     res.status(401).json({
       success: false,
-      message: 'Missing or invalid authorization header.',
+      message: "Missing or invalid authorization header.",
     });
     return;
   }
 
   try {
-    const decoded = await verifyFirebaseToken(header.replace('Bearer ', ''));
+    const decoded = await verifyFirebaseToken(header.replace("Bearer ", ""));
 
     req.user = decoded.email
-      ? {
-          uid: decoded.uid,
-          email: decoded.email,
-        }
-      : {
-          uid: decoded.uid,
-        };
+      ? { uid: decoded.uid, email: decoded.email }
+      : { uid: decoded.uid };
 
     next();
   } catch (error) {
     res.status(401).json({
       success: false,
       message:
-        error instanceof Error ? error.message : 'Could not verify user token.',
+        error instanceof Error ? error.message : "Could not verify user token.",
     });
   }
 }

@@ -1,23 +1,23 @@
-import { promises as fs } from 'fs';
-import path from 'path';
-import type { Feedback } from '../types/feedback.js';
-import { getPrismaClient } from '../../lib/db.js';
+import { promises as fs } from "fs";
+import path from "path";
+import type { Feedback } from "../types/feedback.js";
+import { getPrismaClient } from "../../lib/db.js";
 
 class FeedbackService {
   private readonly dataFilePath = path.resolve(
     process.cwd(),
-    'data',
-    'feedback.json',
+    "data",
+    "feedback.json"
   );
 
   private async readAll() {
     try {
-      const file = await fs.readFile(this.dataFilePath, 'utf8');
+      const file = await fs.readFile(this.dataFilePath, "utf8");
       return JSON.parse(file) as StoredFeedback[];
     } catch (error) {
       const nodeError = error as NodeJS.ErrnoException;
 
-      if (nodeError.code === 'ENOENT') {
+      if (nodeError.code === "ENOENT") {
         return [];
       }
 
@@ -32,7 +32,6 @@ class FeedbackService {
       await prisma.feedback.create({
         data: feedback,
       });
-
       return;
     }
 
@@ -56,7 +55,7 @@ class FeedbackService {
     if (prisma) {
       return prisma.feedback.findMany({
         orderBy: {
-          createdAt: 'desc',
+          createdAt: "desc",
         },
       });
     }

@@ -1,9 +1,9 @@
-import type { Request, Response } from 'express';
-import { jest } from '@jest/globals';
-import { requireAuth } from '../src/middleware/auth.js';
+import type { Request, Response } from "express";
+import { jest } from "@jest/globals";
+import { requireAuth } from "../src/middleware/auth.js";
 
-describe('requireAuth middleware', () => {
-  it('returns 401 when the authorization header is missing', async () => {
+describe("requireAuth middleware", () => {
+  it("returns 401 when the authorization header is missing", async () => {
     const req = {
       headers: {},
     } as Request;
@@ -21,10 +21,10 @@ describe('requireAuth middleware', () => {
     expect(next).not.toHaveBeenCalled();
   });
 
-  it('returns 401 when token verification fails', async () => {
+  it("returns 401 when token verification fails", async () => {
     const req = {
       headers: {
-        authorization: 'Bearer fake-token',
+        authorization: "Bearer fake-token",
       },
     } as Request;
 

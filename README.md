@@ -1,22 +1,23 @@
 # Feedback Tracker Pro
 
-Feedback Tracker Pro is an upgraded full-stack portfolio project built from the original feedback form starter. It now includes a public submission flow, a protected Firebase-powered admin dashboard, Prisma-backed PostgreSQL persistence, Tailwind styling, Zustand UI state, Zod validation, Winston logging, Jest tests, Docker, and GitHub Actions CI.
+Feedback Tracker Pro is a full-stack TypeScript portfolio project. Public visitors can submit feedback, and admins can sign in with Firebase Authentication to access a protected dashboard backed by an Express API and PostgreSQL with Prisma.
 
 ## Tech stack
 
-- Frontend: React, TypeScript, Vite, Tailwind CSS, Zustand, Firebase Authentication
+- Frontend: React, TypeScript, Vite, Tailwind CSS, Firebase Authentication
 - Backend: Node.js, Express, TypeScript, Prisma, PostgreSQL, Zod, Winston
 - Quality: Jest, ESLint
 - DevOps: Docker, Docker Compose, GitHub Actions
 
 ## Features
 
-- Public feedback form with category, rating, notification opt-in, and validation
-- Responsive light and dark mode UI
-- Firebase email/password sign-in for admins
-- Protected dashboard for viewing and updating feedback statuses
-- Live feedback summary cards powered by the backend
-- Prisma schema and SQL demo data for local setup
+- Public feedback submission form
+- Protected admin dashboard using Firebase Authentication
+- Prisma-backed PostgreSQL persistence with JSON fallback for local development
+- Zod request validation
+- Winston logging
+- Responsive layout with light and dark mode
+- Dockerized frontend, backend, and database
 
 ## Project structure
 
@@ -49,41 +50,32 @@ npm install
 npm run dev
 ```
 
-## Docker
+## Testing and linting
 
-Run the full stack with:
+```bash
+cd backend
+npm test
+
+cd ../frontend
+npm run lint
+```
+
+## Docker
 
 ```bash
 docker compose up --build
 ```
 
-Frontend: `http://localhost:8080`
+- Frontend: `http://localhost:8080`
+- Backend: `http://localhost:3000`
 
-Backend: `http://localhost:3000`
-
-## Database
+## Database and documentation
 
 - Prisma schema: `backend/prisma/schema.prisma`
-- Demo SQL file: `docs/demo-data.sql`
+- Demo SQL: `docs/demo-data.sql`
 - ERD: `docs/ERD.md`
-
-## Testing and linting
-
-```bash
-cd backend && npm test
-cd frontend && npm run lint
-```
+- Wireframe notes: `docs/wireframe-notes.md`
 
 ## CI
 
-GitHub Actions is configured in `.github/workflows/ci.yml` to:
-
-- install dependencies
-- generate the Prisma client
-- run backend tests
-- run frontend lint
-- build frontend and backend
-
-## Deployment note
-
-The project is deployment-ready, but it has not been published from this workspace because cloud deployment requires your own hosting account and Firebase project credentials. Good options are Vercel for the frontend and Render or Railway for the backend and PostgreSQL.
+GitHub Actions runs backend tests/builds and frontend lint/build from `.github/workflows/ci.yml`.

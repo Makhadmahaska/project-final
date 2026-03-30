@@ -1,7 +1,7 @@
 import { promises as fs } from 'fs';
 import path from 'path';
-import { Pool } from 'pg';
 import type { Feedback } from '../types/feedback.js';
+import { getPrismaClient } from '../../lib/db.js';
 
 class FeedbackService {
   private readonly dataFilePath = path.resolve(
@@ -9,11 +9,6 @@ class FeedbackService {
     'data',
     'feedback.json',
   );
-  private readonly db = process.env.DATABASE_URL
-    ? new Pool({
-        connectionString: process.env.DATABASE_URL,
-      })
-    : null;
 
   private async readAll() {
     try {
@@ -31,21 +26,12 @@ class FeedbackService {
   }
 
   async save(feedback: Feedback): Promise<void> {
-    if (this.db) {
-      await this.db.query(
-        `
-          INSERT INTO "Feedback" ("name", "email", "category", "rating", "message", "notify")
-          VALUES ($1, $2, $3, $4, $5, $6)
-        `,
-        [
-          feedback.name,
-          feedback.email,
-          feedback.category,
-          feedback.rating,
-          feedback.message,
-          feedback.notify,
-        ],
-      );
+    const prisma = getPrismaClient();
+
+    if (prisma) {
+      await prisma.feedback.create({
+        data: feedback,
+      });
 
       return;
     }
@@ -65,16 +51,14 @@ class FeedbackService {
   }
 
   async getAll() {
-    if (this.db) {
-      const result = await this.db.query<StoredFeedback>(
-        `
-          SELECT "id", "name", "email", "category", "rating", "message", "notify", "createdAt"
-          FROM "Feedback"
-          ORDER BY "createdAt" DESC
-        `,
-      );
+    const prisma = getPrismaClient();
 
-      return result.rows;
+    if (prisma) {
+      return prisma.feedback.findMany({
+        orderBy: {
+          createdAt: 'desc',
+        },
+      });
     }
 
     return this.readAll();

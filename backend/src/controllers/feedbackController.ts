@@ -1,6 +1,7 @@
 import type { Request, Response } from 'express';
 import feedbackService from '../services/feedbackservice.js';
 import { feedbackSchema } from '../validation/feedbackValidator.js';
+import { logger } from '../lib/logger.js';
 
 type FeedbackServiceType = typeof feedbackService;
 
@@ -30,6 +31,7 @@ class FeedbackController {
     } catch (error) {
       const message =
         error instanceof Error ? error.message : 'Failed to save feedback';
+      logger.error('Failed to create feedback', { error: message });
 
       res.status(500).json({
         success: false,
@@ -49,6 +51,7 @@ class FeedbackController {
     } catch (error) {
       const message =
         error instanceof Error ? error.message : 'Failed to fetch feedback';
+      logger.error('Failed to fetch feedback', { error: message });
 
       res.status(500).json({
         success: false,

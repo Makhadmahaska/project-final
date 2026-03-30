@@ -1,5 +1,5 @@
 import type { NextFunction, Request, Response } from 'express';
-import { verifyFirebaseToken } from '../lib/firebaseAdmin.js';
+import { verifyFirebaseToken } from '../firebase/firebaseAdmin.js';
 
 declare global {
   namespace Express {

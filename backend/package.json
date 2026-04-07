@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "build": "tsc", 
+    "build": "tsc --noEmit", 
     "seed": "tsx prisma/seed.ts",
     "lint": "eslint .",
     "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js --config jest.config.js"

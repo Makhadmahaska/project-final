@@ -1,0 +1,54 @@
+import feedbackService from '../services/feedbackservice.js';
+import { feedbackSchema } from '../validation/feedbackValidator.js';
+import { logger } from '../lib/logger.js';
+class FeedbackController {
+    feedbackService;
+    constructor(feedbackService) {
+        this.feedbackService = feedbackService;
+    }
+    async create(req, res) {
+        try {
+            const validation = feedbackSchema.safeParse(req.body);
+            if (!validation.success) {
+                res.status(400).json({
+                    success: false,
+                    errors: validation.error.issues.map((err) => err.message),
+                });
+                return;
+            }
+            const feedback = validation.data;
+            await this.feedbackService.save(feedback);
+            res.status(201).json({
+                success: true,
+                message: 'Feedback submitted successfully',
+            });
+        }
+        catch (error) {
+            const message = error instanceof Error ? error.message : 'Failed to save feedback';
+            logger.error('Failed to create feedback', { error: message });
+            res.status(500).json({
+                success: false,
+                message,
+            });
+        }
+    }
+    async getAll(req, res) {
+        try {
+            const feedbacks = await this.feedbackService.getAll();
+            res.status(200).json({
+                success: true,
+                data: feedbacks,
+            });
+        }
+        catch (error) {
+            const message = error instanceof Error ? error.message : 'Failed to fetch feedback';
+            logger.error('Failed to fetch feedback', { error: message });
+            res.status(500).json({
+                success: false,
+                message,
+            });
+        }
+    }
+}
+export default new FeedbackController(feedbackService);
+//# sourceMappingURL=feedbackController.js.map

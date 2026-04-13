@@ -1,18 +1,29 @@
 services:
+  backend:
+    build: .
+    container_name: backend-app
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+      - /app/node_modules
+
   db:
-    image: postgres:34
+    image: postgres:15
+    container_name: postgres-db
+    restart: always
     environment:
-      POSTGRES_USER: mahad
-      POSTGRES_PASSWORD: mahad6666
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
       POSTGRES_DB: mydb
     ports:
       - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
-  app:
-    build: .
-    ports:
-      - "3000:3000"
-    environment:
-      DATABASE_URL: postgres://b7e69dc967a83ae4dad3c244d7531a6b81cbcacedc6249d5c655b1bc012fc563:sk_3XuMD6r_UQ19pdKd1_BEe@db.prisma.io:5432/postgres?sslmode=require
-    depends_on:
-      - db
+volumes:
+  postgres_data:

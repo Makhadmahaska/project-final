@@ -22,7 +22,7 @@ jobs:
       - name: Show folder structure
         run: ls -R
 
-      - name: Setup Node.js
+      - name: Setup Node.js 
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}

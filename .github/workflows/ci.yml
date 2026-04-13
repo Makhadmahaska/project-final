@@ -33,7 +33,7 @@ jobs:
         run: npm ci
         working-directory: ./backend
 
-      # ✅ Removed prisma step (was causing error)
+     
 
       - name: Build
         run: npm run build
